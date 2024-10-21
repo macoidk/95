@@ -1,4 +1,4 @@
-﻿//Form1.Designer.cs
+//Form1.Designer.cs
 namespace ESP8266Controller
 {
     partial class Form1
@@ -21,6 +21,9 @@ namespace ESP8266Controller
             this.buttonLED1 = new System.Windows.Forms.Button();
             this.buttonLED2 = new System.Windows.Forms.Button();
             this.textBoxReceivedData = new System.Windows.Forms.TextBox();
+            this.textBoxButtonPress = new System.Windows.Forms.TextBox();
+            this.labelButtonPress = new System.Windows.Forms.Label();
+            this.labelLedStatus = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // comboBoxPorts
@@ -61,13 +64,41 @@ namespace ESP8266Controller
             this.buttonLED2.UseVisualStyleBackColor = true;
             this.buttonLED2.Click += new System.EventHandler(this.buttonLED2_Click);
             // 
+            // labelButtonPress
+            // 
+            this.labelButtonPress.AutoSize = true;
+            this.labelButtonPress.Location = new System.Drawing.Point(12, 70);
+            this.labelButtonPress.Name = "labelButtonPress";
+            this.labelButtonPress.Size = new System.Drawing.Size(129, 13);
+            this.labelButtonPress.TabIndex = 5;
+            this.labelButtonPress.Text = "Натискання кнопки:";
+            // 
+            // textBoxButtonPress
+            // 
+            this.textBoxButtonPress.Location = new System.Drawing.Point(12, 86);
+            this.textBoxButtonPress.Multiline = true;
+            this.textBoxButtonPress.Name = "textBoxButtonPress";
+            this.textBoxButtonPress.ReadOnly = true;
+            this.textBoxButtonPress.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBoxButtonPress.Size = new System.Drawing.Size(260, 60);
+            this.textBoxButtonPress.TabIndex = 6;
+            // 
+            // labelLedStatus
+            // 
+            this.labelLedStatus.AutoSize = true;
+            this.labelLedStatus.Location = new System.Drawing.Point(12, 155);
+            this.labelLedStatus.Name = "labelLedStatus";
+            this.labelLedStatus.Size = new System.Drawing.Size(94, 13);
+            this.labelLedStatus.TabIndex = 7;
+            this.labelLedStatus.Text = "Статус LED:";
+            // 
             // textBoxReceivedData
             // 
-            this.textBoxReceivedData.Location = new System.Drawing.Point(12, 68);
+            this.textBoxReceivedData.Location = new System.Drawing.Point(12, 171);
             this.textBoxReceivedData.Multiline = true;
             this.textBoxReceivedData.Name = "textBoxReceivedData";
             this.textBoxReceivedData.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxReceivedData.Size = new System.Drawing.Size(260, 181);
+            this.textBoxReceivedData.Size = new System.Drawing.Size(260, 78);
             this.textBoxReceivedData.TabIndex = 4;
             // 
             // Form1
@@ -75,6 +106,9 @@ namespace ESP8266Controller
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
+            this.Controls.Add(this.labelLedStatus);
+            this.Controls.Add(this.textBoxButtonPress);
+            this.Controls.Add(this.labelButtonPress);
             this.Controls.Add(this.textBoxReceivedData);
             this.Controls.Add(this.buttonLED2);
             this.Controls.Add(this.buttonLED1);
@@ -85,6 +119,7 @@ namespace ESP8266Controller
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         private System.Windows.Forms.ComboBox comboBoxPorts;
@@ -92,5 +127,8 @@ namespace ESP8266Controller
         private System.Windows.Forms.Button buttonLED1;
         private System.Windows.Forms.Button buttonLED2;
         private System.Windows.Forms.TextBox textBoxReceivedData;
+        private System.Windows.Forms.TextBox textBoxButtonPress;
+        private System.Windows.Forms.Label labelButtonPress;
+        private System.Windows.Forms.Label labelLedStatus;
     }
 }
