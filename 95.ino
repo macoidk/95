@@ -49,9 +49,10 @@ void loop() {
   bool currentButtonState = digitalRead(buttonPin);
   if (lastButtonState == HIGH && currentButtonState == LOW) {
     buttonPressed = true;
+    // Додаємо відправку повідомлення через Serial при натисканні кнопки
+    Serial.println("Button pressed!");  // Це повідомлення з'явиться у вікні C# програми
   }
   lastButtonState = currentButtonState;
-
   WiFiClient client = server.available();
 
   if (client) {
