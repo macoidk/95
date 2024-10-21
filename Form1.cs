@@ -53,7 +53,7 @@ namespace ESP8266Controller
         {
             if (comboBoxPorts.SelectedItem == null)
             {
-                MessageBox.Show("Будь ласка, виберіть COM-порт.");
+                MessageBox.Show("Р‘СѓРґСЊ Р»Р°СЃРєР°, РІРёР±РµСЂС–С‚СЊ COM-РїРѕСЂС‚.");
                 return;
             }
 
@@ -61,17 +61,17 @@ namespace ESP8266Controller
             {
                 serialPort.PortName = comboBoxPorts.SelectedItem.ToString();
                 serialPort.Open();
-                buttonConnect.Text = "Відключити";
+                buttonConnect.Text = "Р’С–РґРєР»СЋС‡РёС‚Рё";
                 comboBoxPorts.Enabled = false;
             }
             catch (UnauthorizedAccessException)
             {
-                MessageBox.Show("Доступ до порту заборонено. Можливо, порт вже використовується іншою програмою або у вас недостатньо прав.");
+                MessageBox.Show("Р”РѕСЃС‚СѓРї РґРѕ РїРѕСЂС‚Сѓ Р·Р°Р±РѕСЂРѕРЅРµРЅРѕ. РњРѕР¶Р»РёРІРѕ, РїРѕСЂС‚ РІР¶Рµ РІРёРєРѕСЂРёСЃС‚РѕРІСѓС”С‚СЊСЃСЏ С–РЅС€РѕСЋ РїСЂРѕРіСЂР°РјРѕСЋ Р°Р±Рѕ Сѓ РІР°СЃ РЅРµРґРѕСЃС‚Р°С‚РЅСЊРѕ РїСЂР°РІ.");
                 ClosePortIfOpen();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Помилка при відкритті порту: {ex.Message}");
+                MessageBox.Show($"РџРѕРјРёР»РєР° РїСЂРё РІС–РґРєСЂРёС‚С‚С– РїРѕСЂС‚Сѓ: {ex.Message}");
                 ClosePortIfOpen();
             }
         }
@@ -79,7 +79,7 @@ namespace ESP8266Controller
         private void DisconnectPort()
         {
             ClosePortIfOpen();
-            buttonConnect.Text = "Підключити";
+            buttonConnect.Text = "РџС–РґРєР»СЋС‡РёС‚Рё";
             comboBoxPorts.Enabled = true;
         }
 
@@ -113,13 +113,13 @@ namespace ESP8266Controller
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Помилка при відправці команди: {ex.Message}");
+                    MessageBox.Show($"РџРѕРјРёР»РєР° РїСЂРё РІС–РґРїСЂР°РІС†С– РєРѕРјР°РЅРґРё: {ex.Message}");
                     DisconnectPort();
                 }
             }
             else
             {
-                MessageBox.Show("Порт не відкритий. Будь ласка, підключіться до COM-порту.");
+                MessageBox.Show("РџРѕСЂС‚ РЅРµ РІС–РґРєСЂРёС‚РёР№. Р‘СѓРґСЊ Р»Р°СЃРєР°, РїС–РґРєР»СЋС‡С–С‚СЊСЃСЏ РґРѕ COM-РїРѕСЂС‚Сѓ.");
             }
         }
 
@@ -127,15 +127,25 @@ namespace ESP8266Controller
         {
             try
             {
-                string data = serialPort.ReadLine();
+                string data = serialPort.ReadLine().Trim();
+
                 this.Invoke((MethodInvoker)delegate {
-                    textBoxReceivedData.AppendText(data + Environment.NewLine);
+                    if (data.Contains("Physical Button"))
+                    {
+                        // РџРѕРІС–РґРѕРјР»РµРЅРЅСЏ РІС–Рґ С„С–Р·РёС‡РЅРѕС— РєРЅРѕРїРєРё
+                        textBoxButtonPress.AppendText(DateTime.Now.ToString("HH:mm:ss") + " - " + data + Environment.NewLine);
+                    }
+                    else if (data.Contains("LED"))
+                    {
+                        // РџРѕРІС–РґРѕРјР»РµРЅРЅСЏ РїСЂРѕ Р·РјС–РЅСѓ СЃС‚Р°РЅСѓ LED
+                        textBoxReceivedData.AppendText(DateTime.Now.ToString("HH:mm:ss") + " - " + data + Environment.NewLine);
+                    }
                 });
             }
             catch (Exception ex)
             {
                 this.Invoke((MethodInvoker)delegate {
-                    MessageBox.Show($"Помилка при отриманні даних: {ex.Message}");
+                    MessageBox.Show($"РџРѕРјРёР»РєР° РїСЂРё РѕС‚СЂРёРјР°РЅРЅС– РґР°РЅРёС…: {ex.Message}");
                     DisconnectPort();
                 });
             }
